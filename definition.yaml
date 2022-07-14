@@ -1,0 +1,40 @@
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: compositekafkas.kafka.poc.crossplane.io
+spec:
+  group: kafka.poc.crossplane.io
+  claimNames:
+    kind: Kafka
+    plural: kafkas
+  names:
+    kind: CompositeKafka
+    listKind: CompositeKafkaList
+    singular: compositekafka
+    plural: compositekafkas
+  connectionSecretKeys:
+    - buchtysmakem
+  versions:
+  - name: v1beta1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  name:
+                    description: Name of provisioned resources (usually same as claim name)
+                    type: string
+
+                required:
+                  - name
+
+            required:
+              - parameters
